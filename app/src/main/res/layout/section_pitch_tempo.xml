@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="@color/surface"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="14dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PITCH &amp; TEMPO"
+            android:textColor="@color/accent_purple"
+            android:textSize="10sp"
+            android:letterSpacing="0.15"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Pitch -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Pitch"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/tv_pitch_value"
+                android:layout_width="52dp"
+                android:layout_height="wrap_content"
+                android:text="0 st"
+                android:textColor="@color/accent_purple"
+                android:textSize="13sp"
+                android:gravity="end"/>
+        </LinearLayout>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_pitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="0"
+            android:valueTo="240"
+            android:value="120"
+            android:stepSize="10"
+            android:layout_marginBottom="8dp"
+            app:thumbColor="@color/accent_purple"
+            app:trackColorActive="@color/accent_purple"
+            app:trackColorInactive="@color/surface_variant"/>
+
+        <!-- Tempo -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tempo"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/tv_tempo_value"
+                android:layout_width="52dp"
+                android:layout_height="wrap_content"
+                android:text="100%"
+                android:textColor="@color/accent_cyan"
+                android:textSize="13sp"
+                android:gravity="end"/>
+        </LinearLayout>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_tempo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="50"
+            android:valueTo="200"
+            android:value="100"
+            android:stepSize="5"
+            app:thumbColor="@color/accent_cyan"
+            app:trackColorActive="@color/accent_cyan"
+            app:trackColorInactive="@color/surface_variant"/>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="@color/surface"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="14dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REVERB &amp; ECHO"
+            android:textColor="@color/accent_cyan"
+            android:textSize="10sp"
+            android:letterSpacing="0.15"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Reverb preset -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reverb"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp"
+            android:layout_marginBottom="6dp"/>
+
+        <Spinner
+            android:id="@+id/spinner_reverb"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/spinner_bg"
+            android:popupBackground="@color/surface_variant"
+            android:layout_marginBottom="12dp"/>
+
+        <!-- Echo delay -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Echo Delay"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/tv_echo_value"
+                android:layout_width="52dp"
+                android:layout_height="wrap_content"
+                android:text="Off"
+                android:textColor="@color/accent_cyan"
+                android:textSize="13sp"
+                android:gravity="end"/>
+        </LinearLayout>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_echo_delay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="0"
+            android:valueTo="600"
+            android:value="0"
+            android:stepSize="10"
+            android:layout_marginBottom="8dp"
+            app:thumbColor="@color/accent_cyan"
+            app:trackColorActive="@color/accent_cyan"
+            app:trackColorInactive="@color/surface_variant"/>
+
+        <!-- Echo decay -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Echo Decay"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp"
+            android:layout_marginBottom="4dp"/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_echo_decay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="0"
+            android:valueTo="100"
+            android:value="40"
+            app:thumbColor="@color/accent_cyan"
+            app:trackColorActive="@color/accent_cyan"
+            app:trackColorInactive="@color/surface_variant"/>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

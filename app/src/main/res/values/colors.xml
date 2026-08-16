@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ── Background layers ────────────────────────────────────── -->
+    <color name="bg_dark">#0D0D1A</color>
+    <color name="surface">#1A1A2E</color>
+    <color name="surface_variant">#252540</color>
+
+    <!-- ── Text ──────────────────────────────────────────────────── -->
+    <color name="text_primary">#F0F0FF</color>
+    <color name="text_secondary">#8888AA</color>
+
+    <!-- ── Accent palette ─────────────────────────────────────────
+         Each accent is used by one effect category for fast visual parsing:
+         purple  = pitch / core
+         cyan    = reverb/echo / time
+         gold    = autotune
+         green   = EQ
+    ──────────────────────────────────────────────────────────────── -->
+    <color name="accent_purple">#BB86FC</color>
+    <color name="accent_purple_20">#33BB86FC</color>
+    <color name="accent_cyan">#03DAC6</color>
+    <color name="accent_gold">#FFD700</color>
+    <color name="accent_green">#69F0AE</color>
+    <color name="accent_red">#FF6B6B</color>
+
+    <!-- ── Navigation ────────────────────────────────────────────── -->
+    <color name="nav_active">#BB86FC</color>
+    <color name="nav_inactive">#666688</color>
+
+    <!-- Required by Material theme -->
+    <color name="colorPrimary">#BB86FC</color>
+    <color name="colorPrimaryVariant">#3700B3</color>
+    <color name="colorOnPrimary">#000000</color>
+    <color name="colorSecondary">#03DAC6</color>
+    <color name="colorOnSecondary">#000000</color>
+    <color name="colorError">#CF6679</color>
+    <color name="colorOnError">#000000</color>
+    <color name="colorBackground">#0D0D1A</color>
+    <color name="colorOnBackground">#F0F0FF</color>
+    <color name="colorSurface">#1A1A2E</color>
+    <color name="colorOnSurface">#F0F0FF</color>
+</resources>

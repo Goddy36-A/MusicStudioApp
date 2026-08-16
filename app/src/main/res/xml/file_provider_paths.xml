@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Recordings saved to app-specific external storage -->
+    <external-files-path
+        name="recordings"
+        path="recordings/"/>
+
+    <!-- Temporary export directory -->
+    <cache-path
+        name="exports"
+        path="exports/"/>
+</paths>

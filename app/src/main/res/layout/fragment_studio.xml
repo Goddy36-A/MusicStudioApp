@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- ── Header ───────────────────────────────────────────── -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🎙 Music Studio"
+            android:textColor="@color/text_primary"
+            android:textSize="24sp"
+            android:fontFamily="@font/inter_bold"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sing over any instrumental in your library"
+            android:textColor="@color/text_secondary"
+            android:textSize="13sp"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- ── Track selector ───────────────────────────────────── -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="@color/surface"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/accent_purple"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="BACKING TRACK"
+                    android:textColor="@color/accent_purple"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.15"
+                    android:layout_marginBottom="6dp"/>
+
+                <TextView
+                    android:id="@+id/tv_selected_track"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No track selected — tap to browse"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="10dp"
+                    tools:text="Blinding Lights – The Weeknd"/>
+
+                <Button
+                    android:id="@+id/btn_pick_track"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:text="Browse Library"
+                    android:textSize="13sp"
+                    style="@style/Widget.Material3.Button.OutlinedButton"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ── Waveform + VU meter ──────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="12dp"
+            android:orientation="horizontal">
+
+            <com.musicstudio.app.ui.views.WaveformView
+                android:id="@+id/waveform_view"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"/>
+
+            <com.musicstudio.app.ui.views.VUMeterView
+                android:id="@+id/vu_meter"
+                android:layout_width="24dp"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+        <!-- ── Recording indicator ──────────────────────────────── -->
+        <LinearLayout
+            android:id="@+id/recording_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:visibility="invisible"
+            android:layout_marginBottom="8dp">
+
+            <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@drawable/circle_red"
+                android:layout_marginEnd="6dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RECORDING"
+                android:textColor="#FF6B6B"
+                android:textSize="11sp"
+                android:letterSpacing="0.15"/>
+
+        </LinearLayout>
+
+        <!-- ── Control buttons ──────────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/btn_monitor"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="🎧 Monitor"
+                android:layout_marginEnd="8dp"
+                style="@style/Widget.Material3.Button.OutlinedButton"/>
+
+            <Button
+                android:id="@+id/btn_record"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="⏺ Record"
+                style="@style/Widget.Material3.Button.TonalButton"/>
+
+        </LinearLayout>
+
+        <!-- ═══════════════════════════════════════════════════════
+             EFFECTS PANEL
+             ═══════════════════════════════════════════════════════ -->
+
+        <!-- Volume section -->
+        <include layout="@layout/section_volumes"/>
+
+        <!-- Pitch & Tempo -->
+        <include layout="@layout/section_pitch_tempo"/>
+
+        <!-- AutoTune -->
+        <include layout="@layout/section_autotune"/>
+
+        <!-- Reverb & Echo -->
+        <include layout="@layout/section_reverb_echo"/>
+
+        <!-- 3-Band EQ -->
+        <include layout="@layout/section_eq"/>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

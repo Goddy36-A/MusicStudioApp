@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/studioFragment">
+
+    <fragment
+        android:id="@+id/studioFragment"
+        android:name="com.musicstudio.app.ui.studio.StudioFragment"
+        android:label="Studio"
+        tools:layout="@layout/fragment_studio">
+
+        <action
+            android:id="@+id/action_studio_to_library"
+            app:destination="@id/libraryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_studio_to_export"
+            app:destination="@id/recordingsFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/libraryFragment"
+        android:name="com.musicstudio.app.ui.library.LibraryFragment"
+        android:label="Library"
+        tools:layout="@layout/fragment_library"/>
+
+    <fragment
+        android:id="@+id/recordingsFragment"
+        android:name="com.musicstudio.app.ui.export.RecordingsFragment"
+        android:label="Recordings"
+        tools:layout="@layout/fragment_recordings"/>
+
+</navigation>

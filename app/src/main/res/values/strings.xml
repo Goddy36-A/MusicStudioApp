@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Music Studio</string>
+    <string name="nav_studio">Studio</string>
+    <string name="nav_library">Library</string>
+    <string name="nav_recordings">Recordings</string>
+    <string name="btn_record">⏺ Record</string>
+    <string name="btn_stop">⏹ Stop</string>
+    <string name="btn_monitor">🎧 Monitor</string>
+    <string name="btn_pick_track">Browse Library</string>
+    <string name="label_pitch">Pitch</string>
+    <string name="label_tempo">Tempo</string>
+    <string name="label_autotune">AutoTune</string>
+    <string name="label_reverb">Reverb</string>
+    <string name="label_echo">Echo</string>
+    <string name="label_eq">EQ</string>
+    <string name="perm_mic">Microphone access is required to record your voice.</string>
+    <string name="perm_storage">Storage access is required to browse your music library.</string>
+</resources>

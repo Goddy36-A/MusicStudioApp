@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="@color/surface"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="14dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EQUALIZER"
+            android:textColor="@color/accent_green"
+            android:textSize="10sp"
+            android:letterSpacing="0.15"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Bass row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="2dp">
+            <TextView android:layout_width="52dp" android:layout_height="wrap_content"
+                android:text="Bass" android:textColor="@color/text_primary" android:textSize="13sp"/>
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slider_eq_bass"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:valueFrom="-12" android:valueTo="12" android:value="0"
+                android:stepSize="1"
+                app:thumbColor="@color/accent_green"
+                app:trackColorActive="@color/accent_green"
+                app:trackColorInactive="@color/surface_variant"/>
+            <TextView android:layout_width="36dp" android:layout_height="wrap_content"
+                android:text="0 dB" android:textColor="@color/accent_green"
+                android:textSize="11sp" android:gravity="end"/>
+        </LinearLayout>
+
+        <!-- Mid row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="2dp">
+            <TextView android:layout_width="52dp" android:layout_height="wrap_content"
+                android:text="Mid" android:textColor="@color/text_primary" android:textSize="13sp"/>
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slider_eq_mid"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:valueFrom="-12" android:valueTo="12" android:value="0"
+                android:stepSize="1"
+                app:thumbColor="@color/accent_green"
+                app:trackColorActive="@color/accent_green"
+                app:trackColorInactive="@color/surface_variant"/>
+            <TextView android:layout_width="36dp" android:layout_height="wrap_content"
+                android:text="0 dB" android:textColor="@color/accent_green"
+                android:textSize="11sp" android:gravity="end"/>
+        </LinearLayout>
+
+        <!-- Treble row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <TextView android:layout_width="52dp" android:layout_height="wrap_content"
+                android:text="Treble" android:textColor="@color/text_primary" android:textSize="13sp"/>
+            <com.google.android.material.slider.Slider
+                android:id="@+id/slider_eq_treble"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:valueFrom="-12" android:valueTo="12" android:value="0"
+                android:stepSize="1"
+                app:thumbColor="@color/accent_green"
+                app:trackColorActive="@color/accent_green"
+                app:trackColorInactive="@color/surface_variant"/>
+            <TextView android:layout_width="36dp" android:layout_height="wrap_content"
+                android:text="0 dB" android:textColor="@color/accent_green"
+                android:textSize="11sp" android:gravity="end"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

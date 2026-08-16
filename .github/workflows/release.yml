@@ -1,0 +1,82 @@
+name: Release — Sign & Publish APK
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'        # triggers on v1.0.0, v2.1.3, etc.
+
+permissions:
+  contents: write       # needed to create the GitHub Release
+
+jobs:
+  release:
+    name: Build, Sign & Release
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── Checkout ──────────────────────────────
+      - uses: actions/checkout@v4
+
+      # ── Java ──────────────────────────────────
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # ── Decode Keystore ───────────────────────
+      # Store your base64-encoded keystore as the
+      # secret KEYSTORE_BASE64 in repo settings.
+      - name: Decode keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > keystore.jks
+
+      # ── Build Release APK ─────────────────────
+      - name: Build release APK
+        env:
+          KEYSTORE_PATH:        keystore.jks
+          KEYSTORE_PASSWORD:    ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS:            ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD:         ${{ secrets.KEY_PASSWORD }}
+        run: ./gradlew assembleRelease
+
+      # ── Rename APK ────────────────────────────
+      - name: Rename APK with version tag
+        run: |
+          VERSION="${{ github.ref_name }}"
+          mv app/build/outputs/apk/release/app-release.apk \
+             app/build/outputs/apk/release/MusicStudio-${VERSION}.apk
+
+      # ── Create GitHub Release ─────────────────
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Music Studio ${{ github.ref_name }}"
+          body: |
+            ## 🎵 Music Studio ${{ github.ref_name }}
+
+            ### What's included
+            - Microphone recording over any song or instrumental from device storage
+            - Real-time pitch shift (−12 to +12 semitones)
+            - Tempo control (50 % – 200 %) without altering pitch
+            - Autotune: chromatic & scale-locked modes
+            - Reverb, Echo, and EQ effects
+            - Waveform visualisation with zoom
+            - Export mixed audio to WAV / MP3
+
+            ### Install
+            Download the APK below and allow installation from unknown sources
+            (Settings → Security → Unknown Sources).
+          files: |
+            app/build/outputs/apk/release/MusicStudio-${{ github.ref_name }}.apk
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-beta') || contains(github.ref_name, '-alpha') }}
+
+      # ── Cleanup keystore ──────────────────────
+      - name: Remove keystore
+        if: always()
+        run: rm -f keystore.jks
