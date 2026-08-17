@@ -18,14 +18,14 @@ import kotlin.math.sqrt
  * Central audio coordinator.
  *
  * Architecture:
- *   ┌─────────────────────────────────────────────────────────────────┐
- *   │  Mic → AudioRecord → SonicProcessor → AutoTuneEngine           │
- *   │                    → EffectsChain → ─────────────┐             │
- *   │                                                   ▼             │
- *   │  Track → MediaPlayer → decoded PCM  → AudioMixer → AudioTrack  │
- *   │                                                   │             │
- *   │                                           (optional WAV writer) │
- *   └─────────────────────────────────────────────────────────────────┘
+ *   ┌──────────────────────────────────────────────────────────────┐
+ *   │  Mic → AudioRecord → SonicProcessor → AutoTuneEngine         │
+ *   │                    → EffectsChain → ─────────────┐           │
+ *   │                                                   ▼           │
+ *   │  Track → MediaPlayer → decoded PCM  → AudioMixer → AudioTrack│
+ *   │                                                   │           │
+ *   │                                           (optional WAV writer)│
+ *   └──────────────────────────────────────────────────────────────┘
  */
 class AudioEngine(private val context: Context) {
 
@@ -148,7 +148,7 @@ class AudioEngine(private val context: Context) {
         val micBuffer = ShortArray(FRAME_SIZE)
         val outBuffer = ShortArray(FRAME_SIZE)
 
-        while (isActive) {
+        while (engineScope.isActive) {
             // 1. Read from microphone
             val read = audioRecord?.read(micBuffer, 0, FRAME_SIZE) ?: break
             if (read <= 0) continue
