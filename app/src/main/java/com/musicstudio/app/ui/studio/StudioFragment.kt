@@ -1,6 +1,8 @@
 package com.musicstudio.app.ui.studio
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +31,7 @@ class StudioFragment : Fragment() {
     private val autotune   get() = binding.sectionAutotune
     private val reverbEcho get() = binding.sectionReverbEcho
     private val eq         get() = binding.sectionEq
+    private val lyrics     get() = binding.sectionLyrics
 
     private val viewModel: StudioViewModel by activityViewModels()
 
@@ -46,6 +49,7 @@ class StudioFragment : Fragment() {
         setupSliders()
         setupSwitches()
         setupButtons()
+        setupLyrics()
         observeViewModel()
     }
 
@@ -178,6 +182,40 @@ class StudioFragment : Fragment() {
     private fun startOrMonitor() {
         if (viewModel.selectedTrack.value != null) viewModel.startRecording()
         else viewModel.startMonitoring()
+    }
+
+    // ── Lyrics setup ───────────────────────────────────────────────────
+
+    private fun setupLyrics() {
+        // Header toggle
+        lyrics.lyricsHeader.setOnClickListener {
+            val isVisible = lyrics.groupLyrics.visibility == View.VISIBLE
+            if (isVisible) {
+                lyrics.groupLyrics.visibility = View.GONE
+                lyrics.ivLyricsChevron.animate().rotation(0f).setDuration(200).start()
+            } else {
+                lyrics.groupLyrics.visibility = View.VISIBLE
+                lyrics.ivLyricsChevron.animate().rotation(180f).setDuration(200).start()
+            }
+        }
+
+        // EditText -> ViewModel
+        lyrics.etLyrics.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                viewModel.setLyrics(s?.toString() ?: "")
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        // ViewModel -> EditText
+        viewModel.lyrics.observe(viewLifecycleOwner) { text ->
+            val current = lyrics.etLyrics.text?.toString()
+            if (current != text) {
+                lyrics.etLyrics.setText(text)
+                lyrics.etLyrics.setSelection(text?.length ?: 0)
+            }
+        }
     }
 
     // ── Observers ──────────────────────────────────────────────────────
