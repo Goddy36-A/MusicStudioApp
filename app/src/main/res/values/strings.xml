@@ -16,4 +16,8 @@
     <string name="label_eq">EQ</string>
     <string name="perm_mic">Microphone access is required to record your voice.</string>
     <string name="perm_storage">Storage access is required to browse your music library.</string>
+
+    <!-- Lyrics -->
+    <string name="lyrics_title">Lyrics</string>
+    <string name="lyrics_hint">Paste or type lyrics here...</string>
 </resources>
