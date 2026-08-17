@@ -1,12 +1,11 @@
 package com.musicstudio.app.ui.library
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.musicstudio.app.R
 import com.musicstudio.app.data.Track
 import com.musicstudio.app.databinding.FragmentLibraryBinding
 import com.musicstudio.app.databinding.ItemTrackBinding
@@ -76,8 +74,8 @@ class LibraryFragment : Fragment() {
 
     private fun observeViewModel() {
         viewModel.tracks.observe(viewLifecycleOwner) { tracks ->
-            binding.emptyState.visibility  = if (tracks.isEmpty()) VISIBLE else GONE
-            binding.recyclerTracks.visibility = if (tracks.isEmpty()) GONE else VISIBLE
+            binding.emptyState.visibility     = if (tracks.isEmpty()) View.VISIBLE else View.GONE
+            binding.recyclerTracks.visibility = if (tracks.isEmpty()) View.GONE    else View.VISIBLE
             adapter.submitList(tracks)
         }
     }

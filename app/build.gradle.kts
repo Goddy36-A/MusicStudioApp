@@ -98,9 +98,6 @@ dependencies {
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
 
-    // Waveform view
-    implementation(libs.waveformSeekBar)
-
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

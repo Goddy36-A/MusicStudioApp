@@ -121,7 +121,7 @@ class AutoTuneEngine(private val sampleRate: Int) {
      */
     private fun snapToScale(midi: Double, scale: Scale, root: Int): Double {
         val octave   = floor(midi / 12.0).toInt()
-        val semitone = (midi - octave * 12.0 - root).mod(12.0)
+        val semitone = positiveMod(midi - octave * 12.0 - root, 12.0)
 
         // Find nearest scale degree
         val degrees = scale.semitones
@@ -152,9 +152,8 @@ class AutoTuneEngine(private val sampleRate: Int) {
     }
 }
 
-private fun Double.mod(d: Double): Double {
-    val r = this % d
-    return if (r < 0) r + d else r
+/** Positive modulo (never negative). */
+private fun positiveMod(value: Double, divisor: Double): Double {
+    val r = value % divisor
+    return if (r < 0.0) r + divisor else r
 }
-
-private fun Float.roundToInt() = this.toDouble().roundToInt()
