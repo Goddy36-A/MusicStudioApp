@@ -25,6 +25,7 @@
         android:background="@color/surface"
         app:itemIconTint="@color/nav_item_colors"
         app:itemTextColor="@color/nav_item_colors"
+        app:itemRippleColor="@color/accent_purple_20"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_menu" />
 

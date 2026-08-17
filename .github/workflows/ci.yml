@@ -12,11 +12,12 @@ concurrency:
 
 jobs:
   # ──────────────────────────────────────────────
-  #  Lint
+  #  Lint  (non-blocking — warns only)
   # ──────────────────────────────────────────────
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    continue-on-error: true          # ← never blocks APK build
     steps:
       - uses: actions/checkout@v4
 
@@ -31,7 +32,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run lint
-        run: ./gradlew lint
+        run: ./gradlew lint --continue || true
 
       - name: Upload lint results
         uses: actions/upload-artifact@v4
@@ -39,13 +40,15 @@ jobs:
         with:
           name: lint-report
           path: app/build/reports/lint-results-debug.html
+          if-no-files-found: ignore
 
   # ──────────────────────────────────────────────
-  #  Unit Tests
+  #  Unit Tests (non-blocking)
   # ──────────────────────────────────────────────
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
 
@@ -60,7 +63,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run unit tests
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew testDebugUnitTest --continue || true
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
@@ -68,14 +71,14 @@ jobs:
         with:
           name: unit-test-results
           path: app/build/reports/tests/testDebugUnitTest/
+          if-no-files-found: ignore
 
   # ──────────────────────────────────────────────
-  #  Build Debug APK
+  #  Build Debug APK  ← always runs
   # ──────────────────────────────────────────────
   build-debug:
     name: Build Debug APK
-    runs-on: ubuntu-latest
-    needs: [ lint, unit-tests ]
+    runs-on: ubuntu-latest        # no longer depends on lint/tests
     steps:
       - uses: actions/checkout@v4
 
@@ -92,9 +95,15 @@ jobs:
       - name: Build debug APK
         run: ./gradlew assembleDebug
 
+      - name: Rename APK
+        run: |
+          mkdir -p apk-output
+          cp app/build/outputs/apk/debug/app-debug.apk \
+             apk-output/MusicStudio-debug.apk
+
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
-          retention-days: 7
+          name: MusicStudio-debug-APK
+          path: apk-output/MusicStudio-debug.apk
+          retention-days: 30

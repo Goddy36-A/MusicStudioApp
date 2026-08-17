@@ -23,6 +23,13 @@ class StudioFragment : Fragment() {
     private var _binding: FragmentStudioBinding? = null
     private val binding get() = _binding!!
 
+    // Sub-bindings for included sections
+    private val volumes    get() = binding.sectionVolumes
+    private val pitchTempo get() = binding.sectionPitchTempo
+    private val autotune   get() = binding.sectionAutotune
+    private val reverbEcho get() = binding.sectionReverbEcho
+    private val eq         get() = binding.sectionEq
+
     private val viewModel: StudioViewModel by activityViewModels()
 
     // ── Lifecycle ──────────────────────────────────────────────────────
@@ -52,93 +59,90 @@ class StudioFragment : Fragment() {
     private fun setupSpinners() {
         // Reverb preset
         val reverbLabels = ReverbPreset.entries.map { it.label }
-        binding.spinnerReverb.adapter =
+        reverbEcho.spinnerReverb.adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, reverbLabels)
                 .also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
-        binding.spinnerReverb.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p: AdapterView<*>?, v: View?, pos: Int, id: Long) {
-                viewModel.setReverb(ReverbPreset.entries[pos])
+        reverbEcho.spinnerReverb.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(p: AdapterView<*>?, v: View?, pos: Int, id: Long) {
+                    viewModel.setReverb(ReverbPreset.entries[pos])
+                }
+                override fun onNothingSelected(p: AdapterView<*>?) {}
             }
-            override fun onNothingSelected(p: AdapterView<*>?) {}
-        }
 
         // AutoTune scale
         val scaleLabels = Scale.entries.map { it.label }
-        binding.spinnerScale.adapter =
+        autotune.spinnerScale.adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, scaleLabels)
                 .also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
-        binding.spinnerScale.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p: AdapterView<*>?, v: View?, pos: Int, id: Long) {
-                viewModel.setAutoTuneScale(Scale.entries[pos])
+        autotune.spinnerScale.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(p: AdapterView<*>?, v: View?, pos: Int, id: Long) {
+                    viewModel.setAutoTuneScale(Scale.entries[pos])
+                }
+                override fun onNothingSelected(p: AdapterView<*>?) {}
             }
-            override fun onNothingSelected(p: AdapterView<*>?) {}
-        }
     }
 
     // ── Sliders ────────────────────────────────────────────────────────
 
     private fun setupSliders() {
-        // Pitch: -12 to +12 semitones (slider 0–240, mid=120)
-        binding.sliderPitch.addOnChangeListener { _, value, _ ->
+        // Pitch: slider 0–240, centre=120 → -12 to +12 semitones
+        pitchTempo.sliderPitch.addOnChangeListener { _, value, _ ->
             val semitones = (value - 120f) / 10f
-            binding.tvPitchValue.text = formatSemitones(semitones)
+            pitchTempo.tvPitchValue.text = formatSemitones(semitones)
             viewModel.setPitch(semitones)
         }
 
-        // Tempo: 50% – 200% (slider 50–200)
-        binding.sliderTempo.addOnChangeListener { _, value, _ ->
-            val multiplier = value / 100f
-            binding.tvTempoValue.text = "%.0f%%".format(value)
-            viewModel.setTempo(multiplier)
+        // Tempo: 50–200 (%)
+        pitchTempo.sliderTempo.addOnChangeListener { _, value, _ ->
+            pitchTempo.tvTempoValue.text = "%.0f%%".format(value)
+            viewModel.setTempo(value / 100f)
         }
 
-        // Vocal volume
-        binding.sliderVocalVol.addOnChangeListener { _, value, _ ->
+        // Vocal / track volumes
+        volumes.sliderVocalVol.addOnChangeListener { _, value, _ ->
             viewModel.setVocalVolume(value / 100f)
         }
-
-        // Track volume
-        binding.sliderTrackVol.addOnChangeListener { _, value, _ ->
+        volumes.sliderTrackVol.addOnChangeListener { _, value, _ ->
             viewModel.setTrackVolume(value / 100f)
         }
 
         // AutoTune strength
-        binding.sliderAutoTuneStrength.addOnChangeListener { _, value, _ ->
+        autotune.sliderAutoTuneStrength.addOnChangeListener { _, value, _ ->
             viewModel.setAutoTuneStrength(value / 100f)
         }
 
-        // Echo delay
-        binding.sliderEchoDelay.addOnChangeListener { _, value, _ ->
-            val decay = binding.sliderEchoDecay.value / 100f
-            binding.tvEchoValue.text = if (value < 1f) "Off" else "%.0fms".format(value)
+        // Echo delay + decay
+        reverbEcho.sliderEchoDelay.addOnChangeListener { _, value, _ ->
+            val decay = reverbEcho.sliderEchoDecay.value / 100f
+            reverbEcho.tvEchoValue.text = if (value < 1f) "Off" else "%.0fms".format(value)
             viewModel.setEcho(value.toInt(), decay)
         }
-
-        binding.sliderEchoDecay.addOnChangeListener { _, value, _ ->
-            val delay = binding.sliderEchoDelay.value.toInt()
-            viewModel.setEcho(delay, value / 100f)
+        reverbEcho.sliderEchoDecay.addOnChangeListener { _, value, _ ->
+            viewModel.setEcho(reverbEcho.sliderEchoDelay.value.toInt(), value / 100f)
         }
 
         // EQ
-        binding.sliderEqBass.addOnChangeListener    { _, v, _ -> emitEq() }
-        binding.sliderEqMid.addOnChangeListener     { _, v, _ -> emitEq() }
-        binding.sliderEqTreble.addOnChangeListener  { _, v, _ -> emitEq() }
+        eq.sliderEqBass.addOnChangeListener   { _, _, _ -> emitEq() }
+        eq.sliderEqMid.addOnChangeListener    { _, _, _ -> emitEq() }
+        eq.sliderEqTreble.addOnChangeListener { _, _, _ -> emitEq() }
     }
 
     private fun emitEq() {
         viewModel.setEq(
-            bass    = binding.sliderEqBass.value,
-            mid     = binding.sliderEqMid.value,
-            treble  = binding.sliderEqTreble.value
+            bass   = eq.sliderEqBass.value,
+            mid    = eq.sliderEqMid.value,
+            treble = eq.sliderEqTreble.value
         )
     }
 
     // ── Switches ───────────────────────────────────────────────────────
 
     private fun setupSwitches() {
-        binding.switchAutoTune.setOnCheckedChangeListener { _, checked ->
+        autotune.switchAutoTune.setOnCheckedChangeListener { _, checked ->
             viewModel.setAutoTune(checked)
-            binding.groupAutoTuneOptions.visibility =
+            autotune.groupAutoTuneOptions.visibility =
                 if (checked) View.VISIBLE else View.GONE
         }
     }
@@ -156,13 +160,10 @@ class StudioFragment : Fragment() {
                 return@setOnClickListener
             }
             when (viewModel.engineState.value) {
-                AudioEngine.State.IDLE         -> startOrMonitor()
-                AudioEngine.State.MONITORING   -> {
-                    viewModel.stopSession()
-                    startOrMonitor()
-                }
-                AudioEngine.State.RECORDING    -> viewModel.stopSession()
-                else                           -> {}
+                AudioEngine.State.IDLE       -> startOrMonitor()
+                AudioEngine.State.MONITORING -> { viewModel.stopSession(); startOrMonitor() }
+                AudioEngine.State.RECORDING  -> viewModel.stopSession()
+                else                         -> Unit
             }
         }
 
@@ -179,16 +180,16 @@ class StudioFragment : Fragment() {
         else viewModel.startMonitoring()
     }
 
-    // ── Observers ─────────────────────────────────────────────────────
+    // ── Observers ──────────────────────────────────────────────────────
 
     private fun observeViewModel() {
         viewModel.selectedTrack.observe(viewLifecycleOwner) { track ->
-            binding.tvSelectedTrack.text = track?.let { "${it.title} – ${it.artist}" }
+            binding.tvSelectedTrack.text = track
+                ?.let { "${it.title} — ${it.artist}" }
                 ?: "No track selected — tap to browse"
         }
 
         viewModel.engineState.observe(viewLifecycleOwner) { state ->
-            val isIdle      = state == AudioEngine.State.IDLE
             val isRecording = state == AudioEngine.State.RECORDING
             val isMonitor   = state == AudioEngine.State.MONITORING
 
@@ -197,8 +198,11 @@ class StudioFragment : Fragment() {
                 isMonitor   -> "⏺ Start Recording"
                 else        -> "⏺ Record"
             }
-            binding.btnMonitor.text = if (isMonitor || isRecording) "🔇 Stop Monitor" else "🎧 Monitor"
-            binding.recordingIndicator.visibility = if (isRecording) View.VISIBLE else View.INVISIBLE
+            binding.btnMonitor.text =
+                if (isMonitor || isRecording) "🔇 Stop Monitor" else "🎧 Monitor"
+
+            binding.recordingIndicator.visibility =
+                if (isRecording) View.VISIBLE else View.INVISIBLE
         }
 
         viewModel.amplitude.observe(viewLifecycleOwner) { rms ->
@@ -208,13 +212,10 @@ class StudioFragment : Fragment() {
 
         viewModel.exportedFile.observe(viewLifecycleOwner) { file ->
             if (file != null) {
-                Snackbar.make(
-                    binding.root,
-                    "Saved: ${file.name}",
-                    Snackbar.LENGTH_LONG
-                ).setAction("Export") {
-                    findNavController().navigate(R.id.action_studio_to_export)
-                }.show()
+                Snackbar.make(binding.root, "Saved: ${file.name}", Snackbar.LENGTH_LONG)
+                    .setAction("Recordings") {
+                        findNavController().navigate(R.id.action_studio_to_export)
+                    }.show()
             }
         }
     }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Outer glow ring -->
+    <path
+        android:fillColor="#33BB86FC"
+        android:pathData="M54,20 m-26,0 a26,26 0 1,0 52,0 a26,26 0 1,0 -52,0"/>
+
+    <!-- Microphone body -->
+    <path
+        android:fillColor="#BB86FC"
+        android:pathData="M54,16 c-5.52,0 -10,4.48 -10,10 L44,46 c0,5.52 4.48,10 10,10
+                          s10,-4.48 10,-10 L64,26 c0,-5.52 -4.48,-10 -10,-10z"/>
+
+    <!-- Microphone arc / stand base -->
+    <path
+        android:fillColor="#BB86FC"
+        android:strokeColor="#BB86FC"
+        android:strokeWidth="3"
+        android:fillAlpha="0"
+        android:pathData="M36,46 c0,9.94 8.06,18 18,18 s18,-8.06 18,-18"/>
+
+    <!-- Stand pole -->
+    <path
+        android:fillColor="#BB86FC"
+        android:pathData="M52,64 L52,76 L56,76 L56,64z"/>
+
+    <!-- Stand base -->
+    <path
+        android:fillColor="#BB86FC"
+        android:pathData="M44,76 L64,76 L64,80 L44,80z"/>
+
+    <!-- Subtle sound waves left -->
+    <path
+        android:fillColor="#03DAC6"
+        android:fillAlpha="0.7"
+        android:pathData="M30,38 c-2,2 -3,5 -3,8 s1,6 3,8 L32,52 c-1.5,-1.5 -2,-3.5 -2,-6
+                          s0.5,-4.5 2,-6z"/>
+
+    <!-- Subtle sound waves right -->
+    <path
+        android:fillColor="#03DAC6"
+        android:fillAlpha="0.7"
+        android:pathData="M78,38 c2,2 3,5 3,8 s-1,6 -3,8 L76,52 c1.5,-1.5 2,-3.5 2,-6
+                          s-0.5,-4.5 -2,-6z"/>
+</vector>

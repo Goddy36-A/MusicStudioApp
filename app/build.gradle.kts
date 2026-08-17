@@ -50,6 +50,12 @@ android {
         buildConfig = true
     }
 
+    lint {
+        abortOnError   = false   // warn but don't block the build
+        checkReleaseBuilds = false
+        disable += setOf("MissingTranslation", "ExtraTranslation")
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

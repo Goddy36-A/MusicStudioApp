@@ -21,7 +21,7 @@
             android:text="🎙 Music Studio"
             android:textColor="@color/text_primary"
             android:textSize="24sp"
-            android:fontFamily="@font/inter_bold"
+            android:textStyle="bold"
             android:layout_marginBottom="4dp"/>
 
         <TextView
@@ -157,19 +157,24 @@
              ═══════════════════════════════════════════════════════ -->
 
         <!-- Volume section -->
-        <include layout="@layout/section_volumes"/>
+        <include android:id="@+id/section_volumes"
+            layout="@layout/section_volumes"/>
 
         <!-- Pitch & Tempo -->
-        <include layout="@layout/section_pitch_tempo"/>
+        <include android:id="@+id/section_pitch_tempo"
+            layout="@layout/section_pitch_tempo"/>
 
         <!-- AutoTune -->
-        <include layout="@layout/section_autotune"/>
+        <include android:id="@+id/section_autotune"
+            layout="@layout/section_autotune"/>
 
         <!-- Reverb & Echo -->
-        <include layout="@layout/section_reverb_echo"/>
+        <include android:id="@+id/section_reverb_echo"
+            layout="@layout/section_reverb_echo"/>
 
         <!-- 3-Band EQ -->
-        <include layout="@layout/section_eq"/>
+        <include android:id="@+id/section_eq"
+            layout="@layout/section_eq"/>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
