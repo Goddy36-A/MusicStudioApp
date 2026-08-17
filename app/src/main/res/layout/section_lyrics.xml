@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!-- Header: tap to expand/collapse -->
+  <LinearLayout
+      android:id="@+id/lyrics_header"
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
+      android:orientation="horizontal"
+      android:paddingStart="16dp"
+      android:paddingEnd="16dp"
+      android:gravity="center_vertical">
+
+      <TextView
+          android:id="@+id/tvLyricsTitle"
+          android:layout_width="0dp"
+          android:layout_weight="1"
+          android:layout_height="wrap_content"
+          android:text="@string/lyrics_title"
+          android:textAppearance="?attr/textAppearanceSubtitle1" />
+
+      <ImageView
+          android:id="@+id/ivLyricsChevron"
+          android:layout_width="24dp"
+          android:layout_height="24dp"
+          android:src="@drawable/ic_chevron_down" />
+  </LinearLayout>
+
+  <!-- Collapsible content -->
+  <LinearLayout
+      android:id="@+id/groupLyrics"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:visibility="gone"
+      android:padding="12dp">
+
+      <EditText
+          android:id="@+id/etLyrics"
+          android:layout_width="match_parent"
+          android:layout_height="160dp"
+          android:gravity="top|start"
+          android:inputType="textMultiLine"
+          android:background="?attr/editTextBackground"
+          android:hint="@string/lyrics_hint"
+          android:padding="8dp" />
+  </LinearLayout>
+
+</merge>
