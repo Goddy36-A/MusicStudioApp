@@ -176,5 +176,9 @@
         <include android:id="@+id/section_eq"
             layout="@layout/section_eq"/>
 
+        <!-- Lyrics (collapsible) -->
+        <include android:id="@+id/section_lyrics"
+            layout="@layout/section_lyrics"/>
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
