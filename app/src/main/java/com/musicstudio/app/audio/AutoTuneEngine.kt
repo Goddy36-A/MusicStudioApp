@@ -46,7 +46,7 @@ class AutoTuneEngine(private val sampleRate: Int) {
         val semitoneShift = (correctedMidi - detectedMidi) * strength
 
         // Smooth to prevent zipper noise
-        smoothedShift = smoothedShift + SMOOTH_FACTOR * (semitoneShift - smoothedShift)
+        smoothedShift = smoothedShift + SMOOTH_FACTOR * (semitoneShift.toFloat() - smoothedShift)
 
         return if (abs(smoothedShift) < 0.05f) frame
         else pitchShiftFrame(frame, smoothedShift)
