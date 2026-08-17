@@ -43,6 +43,14 @@ class StudioViewModel(application: Application) : AndroidViewModel(application) 
     private val _tracks = MutableLiveData<List<Track>>(emptyList())
     val tracks: LiveData<List<Track>> = _tracks
 
+    // ── Lyrics ─────────────────────────────────────────────────────────
+    private val _lyrics = MutableLiveData<String>("")
+    val lyrics: LiveData<String> = _lyrics
+
+    fun setLyrics(text: String) {
+        _lyrics.value = text
+    }
+
     init {
         engine.onAmplitudeUpdate = { rms -> _amplitude.postValue(rms) }
     }
